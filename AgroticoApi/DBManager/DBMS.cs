@@ -12,15 +12,15 @@ namespace DBManager
     {
         //Rutas de las diferentes tablas dentro de la base de datos. Se almacenan como constantes para ahorrar tiempo.
         private static String RUTA_EJECUCION = "C:/Users/DELL/Documents/GitHub/ApiAgroTICO/AgroticoApi/DBManager";
-        private static String RUTA_BASE_DE_DATOS = RUTA_EJECUCION + "\\BaseDeDatos";
+        private static String RUTA_BASE_DE_DATOS = RUTA_EJECUCION  + "//BaseDeDatos";
 
-        public static String RUTA_CLIENTES = RUTA_BASE_DE_DATOS + "//Cliente.txt";
-        private static String RUTA_PRODUCTORES = RUTA_BASE_DE_DATOS + "//Productor.txt";
-        private static String RUTA_VENTAS = RUTA_BASE_DE_DATOS + "//Venta.txt";
-        private static String RUTA_PRODUCTOS = RUTA_BASE_DE_DATOS + "//Producto.txt";
-        private static String RUTA_ADMINISTRADORES = RUTA_BASE_DE_DATOS + "//Administrador.txt";
-        private static String RUTA_CATEGORIAS = RUTA_BASE_DE_DATOS + "//Categoria.txt";
-        private static String RUTA_AFILIACIONES = RUTA_BASE_DE_DATOS + "//Afiliacion.txt";
+        public static String RUTA_CLIENTES = RUTA_BASE_DE_DATOS + "\\Cliente.txt";
+        private static String RUTA_PRODUCTORES = RUTA_BASE_DE_DATOS + "\\Productor.txt";
+        private static String RUTA_VENTAS = RUTA_BASE_DE_DATOS + "\\Venta.txt";
+        private static String RUTA_PRODUCTOS = RUTA_BASE_DE_DATOS + "\\Producto.txt";
+        private static String RUTA_ADMINISTRADORES = RUTA_BASE_DE_DATOS + "\\Administrador.txt";
+        private static String RUTA_CATEGORIAS = RUTA_BASE_DE_DATOS + "\\Categoria.txt";
+        private static String RUTA_AFILIACIONES = RUTA_BASE_DE_DATOS + "\\Afiliacion.txt";
 
 
 
@@ -125,7 +125,7 @@ namespace DBManager
             Console.WriteLine("No se ha encontrado a la entidad solicitada dentro del conjunto de entidad " + rutaDelConjuntoEntidad);
             return "";
         }
-        private void INSERT(String rutaDelConjuntoEntidad, String nuevaEntidad)
+        public void INSERT(String rutaDelConjuntoEntidad, String nuevaEntidad)
         {
             Console.WriteLine("El DBMS ha iniciado un proceso de INSERT en el conjunto de entidad " + rutaDelConjuntoEntidad);
             String[] conjuntoEntidadActual = File.ReadAllLines(rutaDelConjuntoEntidad);
@@ -233,7 +233,7 @@ namespace DBManager
             }
 
         }
-        private void UPDATE(String rutaDelConjuntoEntidad, int atributoLlave, String atributoModificar, String nuevoValorTexto, int nuevoValorNumerico)
+        public bool UPDATE(String rutaDelConjuntoEntidad, int atributoLlave, String atributoModificar, String nuevoValorTexto, int nuevoValorNumerico)
         {
             Console.WriteLine("El DBMS ha iniciado un proceso de UPDATE en el conjunto de entidad " + rutaDelConjuntoEntidad);
             String entidadModificar = SELECT(rutaDelConjuntoEntidad, atributoLlave);
@@ -252,10 +252,12 @@ namespace DBManager
                 }
                 INSERT(rutaDelConjuntoEntidad, JsonConvert.SerializeObject(entidadModificada));
                 Console.WriteLine("Se ha actualizado la entidad solicitada de " + entidadModificar + " a " + JsonConvert.SerializeObject(entidadModificada));
+                return true;
             }
             else
             {
                 Console.WriteLine("No se ha encontrado a la entidad solicitada dentro del conjunto de entidad " + rutaDelConjuntoEntidad);
+                return false;
             }
 
         }
