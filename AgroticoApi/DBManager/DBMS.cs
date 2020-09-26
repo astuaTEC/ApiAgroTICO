@@ -10,12 +10,13 @@ namespace DBManager
 
     class DBMS
     {
+        
         //Rutas de las diferentes tablas dentro de la base de datos. Se almacenan como constantes para ahorrar tiempo.
-        private static String RUTA_EJECUCION = "C:/Users/DELL/Documents/GitHub/ApiAgroTICO/AgroticoApi/DBManager";
-        private static String RUTA_BASE_DE_DATOS = RUTA_EJECUCION  + "//BaseDeDatos";
+        private static String RUTA_EJECUCION = AppDomain.CurrentDomain.BaseDirectory;
+        private static String RUTA_BASE_DE_DATOS = RUTA_EJECUCION  + "DBManager\\BaseDeDatos";
 
         public static String RUTA_CLIENTES = RUTA_BASE_DE_DATOS + "\\Cliente.txt";
-        private static String RUTA_PRODUCTORES = RUTA_BASE_DE_DATOS + "\\Productor.txt";
+        public static String RUTA_PRODUCTORES = RUTA_BASE_DE_DATOS + "\\Productor.txt";
         private static String RUTA_VENTAS = RUTA_BASE_DE_DATOS + "\\Venta.txt";
         private static String RUTA_PRODUCTOS = RUTA_BASE_DE_DATOS + "\\Producto.txt";
         private static String RUTA_ADMINISTRADORES = RUTA_BASE_DE_DATOS + "\\Administrador.txt";
@@ -138,7 +139,7 @@ namespace DBManager
             Console.WriteLine("Se ha colocado la nueva entidad " + nuevaEntidad);
             escritor.Close();
         }
-        private void WRITE(String rutaDelConjuntoEntidad, String[] conjuntoEntidadNuevo)
+        public void WRITE(String rutaDelConjuntoEntidad, String[] conjuntoEntidadNuevo)
         {
             Console.WriteLine("El DBMS ha iniciado un proceso de WRITE en el conjunto de entidad " + rutaDelConjuntoEntidad);
             StreamWriter escritor = new StreamWriter(rutaDelConjuntoEntidad);

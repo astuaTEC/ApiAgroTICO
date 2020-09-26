@@ -1,11 +1,6 @@
 ﻿using DBManager;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace AgroticoApi.Controllers
@@ -13,16 +8,13 @@ namespace AgroticoApi.Controllers
     public class ClientesController : ApiController
     {
 
-        DBMS dbms = new DBMS();
+        DBMS _dbms = new DBMS();
 
-        /// <summary>
-        /// Permite consultar info de un usuario
-        /// </summary>
-        /// <returns></returns>
+        // GET api/Clientes
         [HttpGet]
         public IHttpActionResult Get()
         {
-            var listado = dbms.SELECT(DBMS.RUTA_CLIENTES, 987654321);
+            var listado = _dbms.SELECT(DBMS.RUTA_CLIENTES, 987654321);
             if (listado == "")
             {
                 return NotFound();
@@ -32,10 +24,11 @@ namespace AgroticoApi.Controllers
 
         }
 
+        // GET api/Clientes/{id}
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            var listado = dbms.SELECT(DBMS.RUTA_CLIENTES, id);
+            var listado = _dbms.SELECT(DBMS.RUTA_CLIENTES, id);
             if (listado == "")
             {
                 return NotFound();
@@ -45,17 +38,32 @@ namespace AgroticoApi.Controllers
 
         }
 
+        // POST api/Clientes
         [HttpPost]
         public IHttpActionResult Post([FromBody] JObject nuevoCliente)
         {
-           dbms.INSERT(DBMS.RUTA_CLIENTES, JsonConvert.SerializeObject(nuevoCliente));
+           _dbms.INSERT(DBMS.RUTA_CLIENTES, JsonConvert.SerializeObject(nuevoCliente));
             return Ok();
         }
 
+        /*[HttpPost]
+        public IHttpActionResult Post([FromBody] IFormFile image)
+        {
+            
+            if (image != null)
+            { 
+                Console.WriteLine(image);
+                dbms.WRITE(DBMS.RUTA_PRODUCTORES, new[] { image.ToString() });
+                return Ok("La imagen llega");
+            }
+            return NotFound();
+        }*/
+
+        // DELETE api/Clientes/{id}
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
-            var res = dbms.DELETE(DBMS.RUTA_CLIENTES, id);
+            var res = _dbms.DELETE(DBMS.RUTA_CLIENTES, id);
             if (res == true)
             {
                 return Ok();
@@ -63,14 +71,15 @@ namespace AgroticoApi.Controllers
             return NotFound();
         }
 
+        // PUT api/Clientes
         [HttpPut]
-        public IHttpActionResult Put([FromBody] JObject o)
+        public IHttpActionResult Put([FromBody] JObject objeto)
         {
-            var atributoLlave = o["atributoLlave"];
-            var atributoModificar = o["atributoModificar"];
-            var nuevoValorTexto = o["nuevoValorTexto"];
-            var nuevoValorNumerico = o["nuevoValorNumerico"];
-            bool res = dbms.UPDATE(DBMS.RUTA_CLIENTES, (int)atributoLlave, 
+            var atributoLlave = objeto["atributoLlave"];
+            var atributoModificar = objeto["atributoModificar"];
+            var nuevoValorTexto = objeto["nuevoValorTexto"];
+            var nuevoValorNumerico = objeto["nuevoValorNumerico"];
+            bool res = _dbms.UPDATE(DBMS.RUTA_CLIENTES, (int)atributoLlave, 
                 (string)atributoModificar, (string)nuevoValorTexto, (int)nuevoValorNumerico);
 
             if (res == true)
@@ -79,7 +88,6 @@ namespace AgroticoApi.Controllers
             }
             return NotFound();
         }
-
 
     }
 }
