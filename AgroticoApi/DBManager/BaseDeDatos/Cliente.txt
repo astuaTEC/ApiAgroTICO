@@ -1,0 +1,1 @@
+{"numeroCedula":19897969,"nombreUsuario":"OscarArayaX","primerNombre":"Oscar","segundoNombre":"Fernando","primerApellido":"Araya","segundoApellido":"Garbanzo","provinciaResidencia":"Limon","cantonResidencia":"Parrita","distritoResidencia":"San Juan","numeroTelefono":89635241,"contrasena":"test","anioNacimiento":1998,"mesNacimiento":1,"diaNacimiento":3}
